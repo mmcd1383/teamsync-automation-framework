@@ -1,0 +1,22 @@
+{
+  "name": "teamsync-automation-framework",
+  "version": "1.0.0",
+  "description": "End-to-end test automation framework for a sports team scheduling and communication platform using Playwright and TypeScript.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmcd1383/teamsync-automation-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmcd1383/teamsync-automation-framework/issues"
+  },
+  "homepage": "https://github.com/mmcd1383/teamsync-automation-framework#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.0"
+  }
+}

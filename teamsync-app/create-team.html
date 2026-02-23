@@ -1,0 +1,37 @@
+<body>
+  <h1>Create a New Team</h1>
+  <p>Enter your team details below.</p>
+
+  <label for="team-name">Team Name:</label><br>
+  <input id="team-name" type="text" placeholder="E.g. Glasgow Lions"><br><br>
+
+  <button id="save-team-btn">Save Team</button>
+
+  <!-- Feedback area -->
+  <p id="save-status" style="color:#28B463; font-weight:600; display:none;"></p>
+
+  <script>
+    const input = document.getElementById('team-name');
+    const status = document.getElementById('save-status');
+    const saveBtn = document.getElementById('save-team-btn');
+
+    saveBtn.addEventListener('click', () => {
+      const name = (input.value || '').trim();
+
+      if (!name) {
+        status.style.display = 'block';
+        status.style.color = '#C0392B';
+        status.textContent = 'Please enter a team name';
+        return;
+      }
+
+      // Simulate a “save”
+      status.style.display = 'block';
+      status.style.color = '#28B463';
+      status.textContent = `Team "${name}" saved successfully!`;
+
+      // (optional) clear the input to make it obvious something happened
+      // input.value = '';
+    });
+  </script>
+</body>
