@@ -12,13 +12,18 @@ test( 'coach can create a team and save it successfully', async ( { page } ) => 
 
     await expect (page.locator('h1')).toHaveText( 'Create a New Team' );
 
-    await createTeam.enterTeamName ('Cambuslang Rangers 2010')
+    const teamName = 'Cambuslang Rangers 2010';
+    await createTeam.enterTeamName (teamName)
     await createTeam.saveTeam();
 
     await expect (page.locator('#save-status')).toBeVisible();
-    await expect (page.locator('#save-status')).toHaveText( 'Team "Cambuslang Rangers 2010" saved successfully!' );
+    await expect (page.locator('#save-status')).toHaveText( `Team "${teamName}" saved successfully!` );
 
-    await page.pause();
+    //await page.pause();
+
+    // After save assertions
+    await home.navigate();
+    await expect(page.getByTestId('teams-list')).toContainText(teamName);  
 
 });
 

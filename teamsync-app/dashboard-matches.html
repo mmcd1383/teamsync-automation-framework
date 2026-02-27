@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Matches</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .breadcrumbs { margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <div class="breadcrumbs">
+    <a id="back-link" href="#">← Back to Team Dashboard</a>
+  </div>
+
+  <h1 data-qa="team-name"></h1>
+  <h2>Matches</h2>
+  <p>This is a placeholder page for Matches.</p>
+
+  <script type="module">
+    import { setHeaderWithTeamName, setBackLink } from './common.js';
+    const { teamId } = setHeaderWithTeamName('[data-qa="team-name"]');
+    if (teamId) setBackLink('#back-link', teamId);
+  </script>
+</body>
+</html>

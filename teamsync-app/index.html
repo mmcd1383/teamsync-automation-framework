@@ -22,6 +22,61 @@
 <body>
   <h1>Welcome to TeamSync</h1>
   <p>Your sports team scheduling platform</p>
-  <button id="create-team-btn" onclick="window.location.href='create-team.html'">Create Team</button>
+
+  <button id="create-team-btn" data-qa="create-team-btn"
+    onclick="window.location.href='create-team.html'">
+    Create Team
+  </button>
+
+  <h2>Your Teams</h2>
+  <div id="teamsList" data-qa="teams-list"></div>
+  <script>
+    function loadTeams() {
+      const listEl = document.getElementById('teamsList');
+      const teams = JSON.parse(localStorage.getItem('teams') || '[]');
+      listEl.innerHTML = '';
+
+      if (!teams.length) {
+        listEl.innerHTML = '<p data-qa="teams-empty">No teams yet.</p>';
+        return;
+      }
+
+      teams.forEach(team => {
+        const div = document.createElement('div');
+        div.style.margin = '8px 0';
+
+        const a = document.createElement('a');
+        a.href = `team.html?id=${team.id}`;
+        a.textContent = team.name;
+        a.setAttribute('data-qa', `team-link-${team.id}`);
+
+        div.appendChild(a);
+        listEl.appendChild(div);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadTeams);
+  </script>
+  <script>
+  // Renders teams from localStorage and makes each team clickable.
+  (function renderTeamsList() {
+    const teams = JSON.parse(localStorage.getItem('teams') || '[]');
+    const list = document.querySelector('[data-qa="teams-list"]');
+    if (!list) return;
+
+    list.innerHTML = '';
+    teams.forEach(team => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.textContent = team.name;
+      a.href = `team.html?id=${team.id}`;  // <-- key bit: link to team dashboard with id
+      a.setAttribute('data-qa', 'team-link');
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  })();
+</script>
+<script src="./index.js"></script>
+
 </body>
 </html>

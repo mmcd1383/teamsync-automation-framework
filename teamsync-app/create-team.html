@@ -3,17 +3,29 @@
   <p>Enter your team details below.</p>
 
   <label for="team-name">Team Name:</label><br>
-  <input id="team-name" type="text" placeholder="E.g. Glasgow Lions"><br><br>
+  <input id="team-name" data-qa="team-name-input" type="text" placeholder="E.g. Glasgow Lions"><br><br>
 
-  <button id="save-team-btn">Save Team</button>
+  <button id="save-team-btn" data-qa="save-team-btn">Save Team</button>
 
-  <!-- Feedback area -->
-  <p id="save-status" style="color:#28B463; font-weight:600; display:none;"></p>
+  <!-- Single, correct save-status element -->
+  <p id="save-status" data-qa="save-status" style="color:#28B463; font-weight:600; display:none;"></p>
 
   <script>
     const input = document.getElementById('team-name');
     const status = document.getElementById('save-status');
     const saveBtn = document.getElementById('save-team-btn');
+
+    function loadTeams() {
+      return JSON.parse(localStorage.getItem('teams') || '[]');
+    }
+
+    function saveTeams(teams) {
+      localStorage.setItem('teams', JSON.stringify(teams));
+    }
+
+    function generateId() {
+      return 't_' + Math.random().toString(36).slice(2, 9);
+    }
 
     saveBtn.addEventListener('click', () => {
       const name = (input.value || '').trim();
@@ -25,13 +37,21 @@
         return;
       }
 
-      // Simulate a “save”
+      // Save team to localStorage
+      const teams = loadTeams();
+      const newTeam = { id: generateId(), name };
+      teams.push(newTeam);
+      saveTeams(teams);
+
+      // Show success message
       status.style.display = 'block';
       status.style.color = '#28B463';
       status.textContent = `Team "${name}" saved successfully!`;
 
-      // (optional) clear the input to make it obvious something happened
-      // input.value = '';
+      // Redirect after a short delay (lets your test assert the success message first)
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 500);
     });
   </script>
 </body>

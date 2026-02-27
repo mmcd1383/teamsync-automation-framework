@@ -1,21 +1,31 @@
-import { Page } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
 export class CreateTeamPage {
-  constructor(private page: Page) {}
+  private page: Page;
+  private teamNameInput: Locator;
+  private saveTeamBtn: Locator;
+  private saveStatus: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.teamNameInput = page.getByTestId('team-name-input');
+    this.saveTeamBtn = page.getByTestId('save-team-btn');
+    this.saveStatus = page.getByTestId('save-status');
+  }
 
   async getHeaderText() {
     return this.page.textContent('h1');
   }
 
   async enterTeamName(name: string) {
-    await this.page.fill('#team-name', name);
+    await this.teamNameInput.fill(name);
   }
 
   async saveTeam() {
-    await this.page.click('#save-team-btn');
+    await this.saveTeamBtn.click();
   }
 
   async getSaveStatus() {
-    return this.page.textContent('#save-status');
+    return this.saveStatus.textContent();
   }
 }
