@@ -1,0 +1,32 @@
+<!-- teamsync-app/dashboard-players.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Players</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body data-page="players">
+  <header>
+    <button data-testid="back-btn" aria-label="Back">← Back</button>
+    <h1 data-testid="team-header">Team Name</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Players</h2>
+      <form data-testid="player-form">
+        <input name="name" placeholder="Player name" required data-testid="player-name-input" />
+        <input name="number" placeholder="Number" type="number" min="0" data-testid="player-number-input" />
+        <input name="position" placeholder="Position" data-testid="player-position-input" />
+        <button type="submit" data-testid="add-player-btn">Add Player</button>
+      </form>
+
+      <ul data-testid="players-list" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <!-- Import JS as modules so `import { ... } from './common.js'` works -->
+  <script type="module" src="./players.js"></script>
+</body>
+</html>
