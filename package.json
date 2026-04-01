@@ -17,6 +17,7 @@
   "homepage": "https://github.com/mmcd1383/teamsync-automation-framework#readme",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@types/node": "^25.3.0"
+    "@types/node": "^25.3.0",
+    "live-server": "^1.2.2"
   }
 }

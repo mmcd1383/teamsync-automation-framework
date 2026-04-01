@@ -27,7 +27,7 @@ export default defineConfig({
   use: {
     
     /* Base URL to use in actions like `await page.goto('')`. */
-     //baseURL: 'http://127.0.0.1:5500/teamsync-app',
+     baseURL: 'http://127.0.0.1:5500',
      testIdAttribute: 'data-qa',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -79,10 +79,10 @@ headless: false,
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+   //Run your local dev server before starting the tests 
+    webServer: {
+      command: 'npx live-server --port=5500',
+      url: 'http://127.0.0.1:5500',
+      reuseExistingServer: !process.env.CI,
+  },
 });

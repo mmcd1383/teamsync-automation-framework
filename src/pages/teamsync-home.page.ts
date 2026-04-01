@@ -9,11 +9,11 @@ export class TeamSyncHomePage{
   constructor( page: Page) {
     this.page = page;
     this.teamsList = page.getByTestId('teams-list');
-    this.createTeamBtn = page.getByTestId('#create-team-btn');
+    this.createTeamBtn = page.getByTestId('create-team-btn');
   }
 
   async navigate() {
-    await this.page.goto('http://127.0.0.1:5500/teamsync-app/index.html', { waitUntil: 'load' });
+    await this.page.goto('/'), { waitUntil: 'load' };
   }
 
   async getHeaderText() {
