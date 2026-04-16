@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Delete Team</title>
+</head>
+<body>
+
+    <button
+  id="back-to-home-btn"
+  data-qa="back-to-home-btn"
+  onclick="window.location.href='index.html'">
+    Back to Home
+  </button>
+    
+    
+  <h1>Select a team to delete</h1>
+
+  <div data-qa="delete-teams-list">
+    <!-- teams will appear here later -->
+  </div>
+    <!-- Delete confirmation modal -->
+<div id="delete-confirmation-modal" style="display: none;">
+  <p>Are you sure you want to delete this team?</p>
+
+  <button data-qa="confirm-delete-yes">Yes</button>
+  <button data-qa="confirm-delete-no">No</button>
+</div>
+
+<!-- Deletion success message -->
+<div id="delete-success-message" style="display: none;">
+  <p>Team deleted successfully.</p>
+</div>
+``
+<script>
+  let selectedTeamId = null;
+  const teamsListContainer = document.querySelector('[data-qa="delete-teams-list"]');
+  const teams = JSON.parse(localStorage.getItem('teams')) || [];
+
+  if (teams.length === 0) {
+    teamsListContainer.textContent = 'No teams available to delete.';
+  } else {
+    teams.forEach(team => {
+  const teamItem = document.createElement('div');
+
+  teamItem.textContent = team.name;
+  teamItem.dataset.teamId = team.id;
+  teamItem.setAttribute('data-qa', 'delete-team-item');
+  teamItem.style.cursor = 'pointer';
+
+  teamItem.addEventListener('click', () => {
+    selectedTeamId = team.id;
+
+    document.getElementById('delete-confirmation-modal').style.display = 'block';
+  });
+
+  teamsListContainer.appendChild(teamItem);
+});
+
+  }
+  document
+  .querySelector('[data-qa="confirm-delete-no"]')
+  .addEventListener('click', () => {
+    document.getElementById('delete-confirmation-modal').style.display = 'none';
+    selectedTeamId = null;
+  });
+  document
+    .querySelector('[data-qa="confirm-delete-yes"]')
+    .addEventListener('click', () => {
+      const updatedTeams = teams.filter(team => team.id !== selectedTeamId);
+
+      // Update storage
+      localStorage.setItem('teams', JSON.stringify(updatedTeams));
+
+      // Update in-memory list
+      teams.length = 0;
+      updatedTeams.forEach(team => teams.push(team));
+
+      // Clear and re-render list
+      const listContainer = document.querySelector('[data-qa="delete-teams-list"]');
+      listContainer.innerHTML = '';
+
+      if (teams.length === 0) {
+        listContainer.textContent = 'No teams available to delete.';
+      } else {
+        teams.forEach(team => {
+          const teamItem = document.createElement('div');
+          teamItem.textContent = team.name;
+          teamItem.dataset.teamId = team.id;
+          teamItem.style.cursor = 'pointer';
+          teamItem.setAttribute('data-qa', 'delete-team-item');
+
+          teamItem.addEventListener('click', () => {
+            selectedTeamId = team.id;
+            document.getElementById('delete-confirmation-modal').style.display = 'block';
+          });
+
+          listContainer.appendChild(teamItem);
+        });
+      }
+
+      document.getElementById('delete-confirmation-modal').style.display = 'none';
+      document.getElementById('delete-success-message').style.display = 'block';
+
+      selectedTeamId = null;
+    });
+
+
+
+</script>
+</body>
+</html>
