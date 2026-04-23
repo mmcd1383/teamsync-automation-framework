@@ -7,8 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body data-page="players">
-  <header>
-    <button data-testid="back-btn" aria-label="Back">← Back</button>
+  <button
+  id="back-to-home-btn"
+  data-qa="back-to-home-btn"
+  onclick="window.location.href='index.html'">
+    Back to Home
+  </button>
+  </div>
     <h1 data-testid="team-header">Team Name</h1>
   </header>
 
@@ -27,6 +32,7 @@
   </main>
 
   <!-- Import JS as modules so `import { ... } from './common.js'` works -->
-  <script type="module" src="./players.js"></script>
+  <script type="module" src="./players.js">
+  </script>
 </body>
 </html>
